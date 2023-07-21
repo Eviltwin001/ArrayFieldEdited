@@ -1226,7 +1226,7 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 
 	AddDraggingFunctionality(Topbar,Main)
 
-	if typeof(Settings.KeySettings.Key) == "string" then Settings.KeySettings.Key = {Settings.KeySettings.Key} end
+--	if typeof(Settings.KeySettings.Key) == "string" then Settings.KeySettings.Key = {Settings.KeySettings.Key} end
 
 	for _, TabButton in ipairs(TabsList:GetChildren()) do
 		if TabButton.ClassName == "Frame" and TabButton.Name ~= "Placeholder" then
