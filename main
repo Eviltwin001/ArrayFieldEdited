@@ -1181,6 +1181,8 @@ function Minimise()
 	Debounce = false
 end
 
+local CustomFirstTab = false
+
 function ArrayFieldLibrary:CreateWindow(Settings)
 	ArrayField.Enabled = false
 	local Passthrough = false
@@ -1202,6 +1204,10 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 	LoadingFrame.Visible = true
 
     ArrayFieldLibrary:ToggleOldTabStyle(Settings.OldTabLayout)
+
+	if Settings.CustomFirstTab then
+		CustomFirstTab = true
+	end
 
 	pcall(function()
 		if not Settings.ConfigurationSaving.FileName then
@@ -1225,8 +1231,6 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 	end)
 
 	AddDraggingFunctionality(Topbar,Main)
-
---	if typeof(Settings.KeySettings.Key) == "string" then Settings.KeySettings.Key = {Settings.KeySettings.Key} end
 
 	for _, TabButton in ipairs(TabsList:GetChildren()) do
 		if TabButton.ClassName == "Frame" and TabButton.Name ~= "Placeholder" then
@@ -1539,9 +1543,10 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 
 	-- Tab
 	local FirstTab = false
+	local ActualFirstTab = false
 	ArrayFieldQuality.Window = {Tabs = {}}
 	local Window = ArrayFieldQuality.Window
-	function Window:CreateTab(Name,Image)
+	function Window:CreateTab(Name,Image,ActiveTabBySelectionCuzImCoolItsSoLongOmgUznOntopSexMeUwU)
 		Window.Tabs[Name]={Elements = {}}
 		local Tab = Window.Tabs[Name]
 		local SDone = false
@@ -1622,20 +1627,49 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 			TweenService:Create(SideTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0,ImageColor3 = Color3.fromRGB(205, 205, 205)}):Play()
 			TweenService:Create(SideTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = .2,TextColor3 = Color3.fromRGB(205, 205, 205)}):Play()	
 		else
-			FirstTab = Name
+			if not CustomFirstTab then
+				FirstTab = Name
 
-			TopTabButton.BackgroundColor3 = SelectedTheme.TabBackgroundSelected
-			TopTabButton.Image.ImageColor3 = SelectedTheme.SelectedTabTextColor
-			TopTabButton.Title.TextColor3 = SelectedTheme.SelectedTabTextColor
-			TweenService:Create(TopTabButton.Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {ImageTransparency = 0.9}):Play()
-			TweenService:Create(TopTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
-			TweenService:Create(TopTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
-			TweenService:Create(TopTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+				TopTabButton.BackgroundColor3 = SelectedTheme.TabBackgroundSelected
+				TopTabButton.Image.ImageColor3 = SelectedTheme.SelectedTabTextColor
+				TopTabButton.Title.TextColor3 = SelectedTheme.SelectedTabTextColor
+				TweenService:Create(TopTabButton.Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {ImageTransparency = 0.9}):Play()
+				TweenService:Create(TopTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
+				TweenService:Create(TopTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
+				TweenService:Create(TopTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 
-			SideTabButton.Image.ImageColor3 = Color3.fromRGB(255, 255, 255)
-			SideTabButton.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-			TweenService:Create(SideTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
-			TweenService:Create(SideTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+				SideTabButton.Image.ImageColor3 = Color3.fromRGB(255, 255, 255)
+				SideTabButton.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+				TweenService:Create(SideTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
+				TweenService:Create(SideTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+			elseif ActiveTabBySelectionCuzImCoolItsSoLongOmgUznOntopSexMeUwU then
+				FirstTab = Name
+
+				TopTabButton.BackgroundColor3 = SelectedTheme.TabBackgroundSelected
+				TopTabButton.Image.ImageColor3 = SelectedTheme.SelectedTabTextColor
+				TopTabButton.Title.TextColor3 = SelectedTheme.SelectedTabTextColor
+				TweenService:Create(TopTabButton.Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {ImageTransparency = 0.9}):Play()
+				TweenService:Create(TopTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
+				TweenService:Create(TopTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
+				TweenService:Create(TopTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+
+				SideTabButton.Image.ImageColor3 = Color3.fromRGB(255, 255, 255)
+				SideTabButton.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+				TweenService:Create(SideTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
+				TweenService:Create(SideTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+			else
+				TopTabButton.BackgroundColor3 = SelectedTheme.TabBackground
+				TopTabButton.Image.ImageColor3 = SelectedTheme.TabTextColor
+				TopTabButton.Title.TextColor3 = SelectedTheme.TabTextColor
+				TweenService:Create(TopTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0.7}):Play()
+				TweenService:Create(TopTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0.2}):Play()
+				TweenService:Create(TopTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.2}):Play()
+				TweenService:Create(TopTabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
+				TweenService:Create(TopTabButton.Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {ImageTransparency = 0.7}):Play()
+
+				TweenService:Create(SideTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0,ImageColor3 = Color3.fromRGB(205, 205, 205)}):Play()
+				TweenService:Create(SideTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = .2,TextColor3 = Color3.fromRGB(205, 205, 205)}):Play()	
+			end
 
 		end
 
@@ -2115,6 +2149,7 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 			local Dropdown = Elements.Template.Dropdown:Clone()
 			local SearchBar = Dropdown.List["-SearchBar"]
 			local Required = 1
+			local OptionsTable = {}
 			--local Debounce = false
 			DropdownSettings.Items = {
 				Selected = {Default = DropdownSettings.Selected or nil}
@@ -2276,6 +2311,9 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 						if Selected == Option then
 							IsSelected = true
 							OptionInTable.Selected = true
+							if not table.find(OptionsTable, OptionInTable) then
+								table.insert(OptionsTable, OptionInTable)
+							end
 							table.insert(DropdownSettings.Items.Selected,OptionInTable)
 							DropdownSettings.Items.Selected[table.find(DropdownSettings.Items.Selected,OptionInTable)].Selected = true
 						end
@@ -2302,10 +2340,33 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 					if DropdownSettings.Locked then return end
 					if OptionInTable.Selected then
 						OptionInTable.Selected = false
+						table.remove(OptionsTable, table.find(OptionsTable, OptionInTable))
 						table.remove(DropdownSettings.Items.Selected,table.find(DropdownSettings.Items.Selected,OptionInTable))
 						RefreshSelected()
 						TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
 						SaveConfiguration()
+
+						local Success, Response = pcall(function()
+							if #OptionsTable > 1 then
+								local callbackTable = {}
+								for i, v in pairs(OptionsTable) do
+									table.insert(callbackTable, v.Option.Name)
+								end
+								DropdownSettings.Callback(callbackTable)
+							else
+								local callbackTable = {}
+								for i, v in pairs(OptionsTable) do
+									table.insert(callbackTable, v.Option.Name)
+								end
+								DropdownSettings.Callback(tostring(callbackTable[1]))
+							end
+						end)
+
+						if not Success then
+							Error('Callback Error')
+							print("ArrayField | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
+						end
+
 						return
 					end
 					if not Multi and DropdownSettings.Items.Selected[1] then
@@ -2316,12 +2377,21 @@ function ArrayFieldLibrary:CreateWindow(Settings)
 						DropdownSettings.Items.Selected = {OptionInTable}
 						Dropdown.Selected.Text = Option.Name or Option
 					else
-						table.insert(DropdownSettings.Items.Selected,OptionInTable)
+						table.insert(OptionsTable, OptionInTable)
+						table.insert(DropdownSettings.Items.Selected, OptionInTable)
 						RefreshSelected()
 					end
 
 					local Success, Response = pcall(function()
-						DropdownSettings.Callback(Option)
+						if #OptionsTable > 1 then
+							local callbackTable = {}
+							for i, v in pairs(OptionsTable) do
+								table.insert(callbackTable, v.Option.Name)
+							end
+							DropdownSettings.Callback(callbackTable)
+						else
+							DropdownSettings.Callback(Option)
+						end
 					end)
 					if not Success then
 						Error('Callback Error')
